@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
     };
 
     res.locals = viewModel;
-    res.render('index', {
+    res.render('home', {
         layout: 'layouts/layout'
     });
 };
