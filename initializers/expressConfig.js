@@ -7,9 +7,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
+var config = require('config');
 
-module.exports = function (app, config) {
-    app.set('views', config.root + '/app/views');
+var path = require('path');
+var rootFolder = path.normalize(__dirname + '/..');
+
+module.exports = function (app, routes) {
+    app.set('views', rootFolder + '/app/views');
     app.set('view engine', 'html');
     app.engine('html', require('hogan-express'));
 
@@ -25,13 +29,9 @@ module.exports = function (app, config) {
     }));
     app.use(cookieParser());
     app.use(compress());
-    app.use(express.static(config.root + '/public'));
+    app.use(express.static(rootFolder + '/public'));
     app.use(methodOverride());
-
-    var controllers = glob.sync(config.root + '/app/controllers/*.js');
-    controllers.forEach(function (controller) {
-        require(controller)(app);
-    });
+    app.use('/', routes);
 
     app.use(function (req, res, next) {
         var err = new Error('Not Found');
@@ -58,4 +58,5 @@ module.exports = function (app, config) {
             title: 'error'
         });
     });
+
 };

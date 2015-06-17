@@ -1,11 +1,7 @@
-
-
-var express = require('express'),
-  config = require('./initializers/config');
-
+var express = require('express');
 var app = express();
 
-require('./initializers/express')(app, config);
-
-app.listen(config.port);
+require('./initializers/initialize')(app);
+var port = process.env.PORT || 3000;
+app.listen(port);
 
