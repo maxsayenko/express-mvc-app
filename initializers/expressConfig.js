@@ -12,7 +12,7 @@ var config = require('config');
 var path = require('path');
 var rootFolder = path.normalize(__dirname + '/..');
 
-module.exports = function (app) {
+module.exports = function (app, routes) {
     app.set('views', rootFolder + '/app/views');
     app.set('view engine', 'html');
     app.engine('html', require('hogan-express'));
@@ -31,11 +31,7 @@ module.exports = function (app) {
     app.use(compress());
     app.use(express.static(rootFolder + '/public'));
     app.use(methodOverride());
-
-    var controllers = glob.sync(rootFolder + '/app/controllers/*.js');
-    controllers.forEach(function (controller) {
-        require(controller)(app);
-    });
+    app.use('/', routes);
 
     app.use(function (req, res, next) {
         var err = new Error('Not Found');
@@ -62,6 +58,5 @@ module.exports = function (app) {
             title: 'error'
         });
     });
-
 
 };
