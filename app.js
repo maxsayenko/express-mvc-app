@@ -1,7 +1,4 @@
-var config = require("config");
-
 var express = require('express');
-//var config = require('./initializers/config');
 var app = express();
 
 require('./initializers/express')(app);
