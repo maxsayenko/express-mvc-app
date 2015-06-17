@@ -5,7 +5,7 @@ var router = express.Router();
 
 module.exports = function (controllers) {
     router.get('/', controllers.home);
-    router.get('/:id/about', controllers.about);
+    router.get('/about', controllers.about);
 
     return router;
 };
