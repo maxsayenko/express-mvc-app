@@ -13,7 +13,6 @@ var path = require('path');
 var rootFolder = path.normalize(__dirname + '/..');
 
 module.exports = function (app) {
-    console.log(config.nn);
     app.set('views', rootFolder + '/app/views');
     app.set('view engine', 'html');
     app.engine('html', require('hogan-express'));
@@ -63,4 +62,6 @@ module.exports = function (app) {
             title: 'error'
         });
     });
+
+
 };
