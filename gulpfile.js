@@ -1,16 +1,16 @@
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
 var livereload = require('gulp-livereload');
-var sass = require('gulp-ruby-sass');
+var sass = require('gulp-sass');
 
 gulp.task('sass', function () {
-    return sass('./public/css/')
-        .pipe(gulp.dest('./public/css'))
-        .pipe(livereload());
+    gulp.src('./public/scss/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./public/css/*.scss', ['sass']);
+    gulp.watch('./public/scss/*.scss', ['sass']);
 });
 
 gulp.task('develop', function () {
