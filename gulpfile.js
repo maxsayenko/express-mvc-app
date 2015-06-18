@@ -16,8 +16,10 @@ gulp.task('watch', function () {
 gulp.task('develop', function () {
     livereload.listen();
     nodemon({
+        "verbose": true,
         script: 'app.js',
-        ext: 'js coffee ejs',
+        ext: 'js',
+        env: {'NODE_ENV': 'development'}
     }).on('restart', function () {
         setTimeout(function () {
             livereload.changed(__dirname);
