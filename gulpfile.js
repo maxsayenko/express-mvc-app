@@ -13,14 +13,14 @@ gulp.task('watch', function () {
     gulp.watch('./public/scss/*.scss', ['sass']);
 });
 
-gulp.task('develop', function () {
+gulp.task('run:dev', function () {
     livereload.listen();
     nodemon({
         "verbose": true,
         script: 'app.js',
         ext: 'js',
         env: {'NODE_ENV': 'development'}
-    }).on('restart', function () {
+    }).on('restart', function (listOfChangedFiles) {
         setTimeout(function () {
             livereload.changed(__dirname);
         }, 500);
@@ -29,6 +29,6 @@ gulp.task('develop', function () {
 
 gulp.task('default', [
     'sass',
-    'develop',
+    'run:dev',
     'watch'
 ]);
